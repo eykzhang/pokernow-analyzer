@@ -1,111 +1,140 @@
-# 🃏 PokerNow Hand Analyzer
+# PokerNow Analyzer
 
-A Python-based poker analysis tool designed to parse hands played on
-PokerNow, reconstruct game state, and provide GTO-inspired feedback and
-player statistics.
+A Python application for parsing, analyzing, and visualizing **PokerNow** hand histories. PokerNow Analyzer aggregates raw game logs into a SQLite database and generates actionable statistics and reports to help players identify long-term strategic leaks and improve their decision-making.
 
-> ⚠️ This project is intended for **training, research, and analysis
-> only**. It is not designed for real-time assistance or use in
-> real-money games.
+> **Status:** Active Development
 
-------------------------------------------------------------------------
+---
 
-## 🚀 Features (V1)
+## Features
 
--   ✅ Parse PokerNow hand histories\
--   ✅ Reconstruct full game state (pot, stacks, board, actions)\
--   ✅ Extract and analyze your decisions\
--   ✅ Calculate:
-    -   Pot odds
-    -   Equity (Monte Carlo)
--   ✅ Track player statistics:
-    -   VPIP
-    -   PFR
-    -   Aggression Factor\
--   ✅ Provide heuristic "GTO-style" feedback\
--   ✅ Command-line interface for quick analysis
+- Parse PokerNow hand history logs into structured game data
+- Persist parsed hands and player statistics using SQLite
+- Analyze gameplay trends and player tendencies
+- Generate interactive HTML reports summarizing performance
+- Modular architecture designed to support future replay analysis and advanced analytics
 
-------------------------------------------------------------------------
+---
 
-## 🧠 Vision
+## Demo
 
-### V1 (current)
+> *Screenshots and demo GIF coming soon.*
 
--   Hand parsing + analysis
--   Rule-based feedback
--   Basic statistics
+---
 
-### V2 (planned)
+## Motivation
 
--   Train a personal poker bot based on your playstyle
--   Compare your decisions vs GTO strategies
--   Identify systematic leaks
+Poker is a game of incomplete information where long-term improvement depends on identifying recurring mistakes rather than individual bad outcomes. While PokerNow stores raw hand histories, it provides relatively limited tooling for long-term statistical analysis.
 
-### V3 (future)
+PokerNow Analyzer was built to automate this process by transforming raw hand histories into structured data that can be queried, analyzed, and visualized.
 
--   Advanced GTO approximation (solver data / ML)
--   Simulation environment
--   Self-improvement loop (bot vs GTO)
+---
 
-------------------------------------------------------------------------
+## Architecture
 
-## 🏗️ Project Structure
+Current processing pipeline:
 
-    poker-analyzer/
-    │
-    ├── main.py
-    ├── config/
-    ├── parser/
-    ├── engine/
-    ├── analysis/
-    ├── feedback/
-    ├── data/
-    └── utils/
-
-------------------------------------------------------------------------
-
-## 🔄 How It Works
-
-Hand History → Parser → State Builder → Decision Extraction → Analysis →
-Feedback
-
-------------------------------------------------------------------------
-
-## 🧪 Example Usage
-
-``` bash
-python main.py data/sample_hands.txt
+```text
+PokerNow Log Files
+        │
+        ▼
+ Parser (parser.py)
+        │
+        ▼
+ Structured Hand Data
+        │
+        ▼
+ Analysis Engine (analysis.py)
+        │
+        ▼
+ SQLite Database
+        │
+        ▼
+ HTML Report Generator (report.py)
 ```
 
-------------------------------------------------------------------------
+Repository structure:
 
-## ⚠️ Disclaimer
+```
+pokernow-analyzer/
+│
+├── src/
+│   ├── parser.py
+│   ├── analysis.py
+│   ├── report.py
+│   ├── database.py
+│   ├── models.py
+│   └── ...
+│
+├── data/
+│
+├── reports/
+│
+├── requirements.txt
+└── README.md
+```
 
--   For offline analysis only\
--   Do not use in real-time play\
--   GTO recommendations are approximations
+---
 
-------------------------------------------------------------------------
+## Technologies
 
-## 🛠️ Tech Stack
+| Category | Technologies |
+|-----------|--------------|
+| Language | Python |
+| Database | SQLite |
+| Frontend | HTML, CSS |
+| Data Processing | pandas |
+| Version Control | Git |
 
--   Python 3.x\
--   NumPy\
--   Pandas\
--   SQLite
+---
 
-------------------------------------------------------------------------
+## Installation
 
-## 📌 Roadmap
+Clone the repository
 
--   Improve parser\
--   Add deeper feedback\
--   Integrate solver data\
--   Train personal bot
+```bash
+git clone https://github.com/eykzhang/pokernow-analyzer.git
+cd pokernow-analyzer
+```
 
-------------------------------------------------------------------------
+Install dependencies
 
-## 💡 Goal
+```bash
+pip install -r requirements.txt
+```
 
-Understand how your play differs from optimal strategy and improve over
-time.
+Run the analyzer
+
+```bash
+python src/main.py
+```
+
+---
+
+## Engineering Challenges
+
+Some of the most interesting engineering problems in this project include:
+
+- Parsing semi-structured PokerNow logs into a normalized data model
+- Designing a SQLite schema capable of efficiently storing hands and player statistics
+- Separating parsing, analysis, persistence, and report generation into independent modules
+- Producing human-readable reports from large collections of historical games
+
+---
+
+## Future Work
+
+Planned improvements include:
+
+- Interactive replay browser
+- Expected value (EV) analysis
+- Leak detection heuristics
+- Session comparison tools
+- Machine learning-based decision support
+- Web interface for uploading and analyzing sessions
+
+---
+
+## License
+
+This project is licensed under the MIT License.
